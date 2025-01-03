@@ -545,3 +545,51 @@ console.log(sortingAlgorithms.mergeSort([...arr])); // [1, 2, 3, 5, 8]
 const obsArr = new ObservableArray();
 window.addEventListener('itemsAdded', (e) => console.log('Added:', e.detail.items));
 obsArr.push(1, 2, 3); // Logs: Added: [1, 2, 3]
+
+/*
+React DOM Rendering Process Explanation
+
+1. Initial Render
+   - React creates a virtual DOM representation of the UI
+   - The virtual DOM is a lightweight JavaScript object tree
+   - ReactDOM.render() is called with the root component
+
+2. Reconciliation Process (Fiber)
+   - React builds a "fiber tree" representing the UI
+   - Each fiber corresponds to a component/element
+   - Work is split into units that can be paused/resumed
+
+3. Render Phases
+   a) Render Phase (Pure and without side effects)
+      - Creates new fiber nodes
+      - Calculates changes needed
+      - Can be paused and resumed
+      - Runs getDerivedStateFromProps
+      - Runs shouldComponentUpdate
+      - Runs render
+
+   b) Commit Phase (Cannot be interrupted)
+      - Updates the actual DOM
+      - Runs componentDidMount/Update
+      - Runs useLayoutEffect
+      - Makes the changes visible
+
+4. State Updates
+   - setState() schedules an update
+   - Updates are batched for performance
+   - Multiple state updates in event handlers are batched
+   - React 18 automatically batches all updates
+
+5. Key Performance Optimizations
+   - Virtual DOM diffing
+   - Reconciliation algorithm
+   - Component memoization (React.memo)
+   - useCallback and useMemo hooks
+   - Lazy loading with Suspense
+
+6. React 18 Concurrent Features
+   - Concurrent rendering
+   - Automatic batching
+   - Transitions
+   - Suspense on the server
+*/
